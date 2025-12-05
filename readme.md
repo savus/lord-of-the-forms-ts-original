@@ -14,7 +14,7 @@ For this assignment we want to a make an extremely user friendly UI where we can
 - Everything should look pretty
 - Input Validation Errors are rendered to the user
 
-We are going to build out a form that's purpose is to gather and set the `userInformation` of the parent component.
+We are going to build out a form that's purpose is to gather and set the `TUserInformation` of the parent component.
 
 ## Learning Objectives
 
@@ -76,7 +76,7 @@ Validation UI
 - [ ] Under input errors should not show UNLESS the user has already tried submitting once
 - [ ] Errors should go away as soon as the field is fixed, not on submit
 - [ ] If a user tries to submit a form with bad inputs, an alert message will say "Bad Inputs" then the exact errors will pop up under the incorrect inputs
-- [ ] When a user successfully submits the form, it should update the userInformation and show the user information in the ProfileInformation Component
+- [ ] When a user successfully submits the form, it should update the TUserInformation and show the user information in the ProfileInformation Component
 - [ ] First Name should be at least 2 characters long and should not contain numbers
 - [ ] Last Name should be at least 2 characters long and should not contain numbers
 - [ ] Email should pass the `isEmailValid` function

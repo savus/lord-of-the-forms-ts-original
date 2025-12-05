@@ -1,4 +1,7 @@
+import { useState } from "react";
 import { ErrorMessage } from "../ErrorMessage";
+import { TUserInformation } from "../types";
+import { TextInput } from "../CustomComponents/TextInput";
 
 const firstNameErrorMessage = "First name must be at least 2 characters long";
 const lastNameErrorMessage = "Last name must be at least 2 characters long";
@@ -6,18 +9,38 @@ const emailErrorMessage = "Email is Invalid";
 const cityErrorMessage = "State is Invalid";
 const phoneNumberErrorMessage = "Invalid Phone Number";
 
-export const FunctionalForm = () => {
+export const FunctionalForm = ({
+  setUserInfo,
+}: {
+  setUserInfo: (info: TUserInformation) => void;
+}) => {
+  const [firstNameInput, setFirstNameInput] = useState("");
+  const [lastNameInput, setLastNameInput] = useState("");
+  const [emailInput, setEmailInput] = useState("");
+  const [cityInput, setCityInput] = useState("");
+
   return (
-    <form>
+    <form
+      action="#"
+      onSubmit={(e) => {
+        e.preventDefault();
+        setUserInfo(null);
+      }}
+    >
       <u>
         <h3>User Information Form</h3>
       </u>
 
       {/* first name input */}
-      <div className="input-wrap">
-        <label>{"First Name"}:</label>
-        <input placeholder="Bilbo" />
-      </div>
+      <TextInput
+        label="First Name"
+        inputProps={{
+          placeholder: "Bilbo",
+          type: "text",
+          value: firstNameInput,
+          onChange: ({ target: { value } }) => setFirstNameInput(value),
+        }}
+      />
       <ErrorMessage message={firstNameErrorMessage} show={true} />
 
       {/* last name input */}
@@ -37,7 +60,7 @@ export const FunctionalForm = () => {
       {/* City Input */}
       <div className="input-wrap">
         <label>{"City"}:</label>
-        <input placeholder="Hobbiton" />
+        <input placeholder="Hobbiton" list="cities" />
       </div>
       <ErrorMessage message={cityErrorMessage} show={true} />
 

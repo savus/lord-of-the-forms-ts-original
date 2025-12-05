@@ -1,4 +1,4 @@
-import { UserInformation } from "./types";
+import { TUserInformation } from "./types";
 
 export const InfoRow = ({ label, value }: { label: string; value: string }) => {
   return (
@@ -13,7 +13,7 @@ export const InfoRow = ({ label, value }: { label: string; value: string }) => {
 export const ProfileInformation = ({
   userData,
 }: {
-  userData: UserInformation | null;
+  userData: TUserInformation | null;
 }) => {
   if (!userData) {
     return (
