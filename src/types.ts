@@ -13,3 +13,5 @@ export type TUserInformation = {
 };
 
 export type TInputProps = ComponentProps<"input">;
+
+export type TPhoneInput = [string, string, string, string];

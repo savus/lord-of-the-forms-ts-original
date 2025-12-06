@@ -1,10 +1,9 @@
 export const capitalize = (word: string) =>
   `${word.slice(0, 1).toUpperCase()}${word.slice(1).toLowerCase()}`;
 
-export const formatPhoneNumber = (phoneNumber: string) => {
+export const formatPhoneNumber = (phoneNumber: string, format: number[]) => {
   // todo: build this function
   // `formatPhoneNumber("1234567")` should be `"12-34-56-7"`
-  const format = [2, 2, 2, 1];
   let strCopy = phoneNumber;
   let result = "";
 
