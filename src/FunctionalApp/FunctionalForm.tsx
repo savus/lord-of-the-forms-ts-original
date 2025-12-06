@@ -3,6 +3,8 @@ import { ErrorMessage } from "../ErrorMessage";
 import { TPhoneInput, TUserInformation } from "../types";
 import { TextInput } from "../CustomComponents/TextInput";
 import { PhoneInput } from "../CustomComponents/PhoneInput";
+import { isInputValid } from "../utils/validations";
+import { formatPhoneNumber } from "../utils/transformations";
 
 const firstNameErrorMessage = "First name must be at least 2 characters long";
 const lastNameErrorMessage = "Last name must be at least 2 characters long";
@@ -25,13 +27,58 @@ export const FunctionalForm = ({
     "",
     "",
   ]);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+
+  const formatedPhoneInput = formatPhoneNumber(
+    phoneInputState.join(""),
+    [2, 2, 2, 1]
+  );
+
+  const isFirstNameValid = isInputValid(firstNameInput, "name");
+  const isLastNameValid = isInputValid(lastNameInput, "name");
+  const isEmailValid = isInputValid(emailInput, "email");
+  const isCityValid = isInputValid(cityInput, "city");
+  const isPhoneValid = isInputValid(formatedPhoneInput, "phone");
+
+  const showFirstNameError = hasSubmitted && !isFirstNameValid;
+  const showLastNameError = hasSubmitted && !isLastNameValid;
+  const showEmailError = hasSubmitted && !isEmailValid;
+  const showCityError = hasSubmitted && !isCityValid;
+  const showPhoneError = hasSubmitted && !isPhoneValid;
+
+  const doBadInputsExist =
+    !isFirstNameValid ||
+    !isLastNameValid ||
+    !isEmailValid ||
+    !isCityValid ||
+    !isPhoneValid;
+
+  const resetValues = () => {
+    setFirstNameInput("");
+    setLastNameInput("");
+    setEmailInput("");
+    setCityInput("");
+    setPhoneInputState(["", "", "", ""]);
+  };
 
   return (
     <form
       action="#"
       onSubmit={(e) => {
         e.preventDefault();
-        setUserInfo(null);
+        setHasSubmitted(true);
+        if (!doBadInputsExist) {
+          setUserInfo({
+            firstName: firstNameInput,
+            lastName: lastNameInput,
+            email: emailInput,
+            city: cityInput,
+            phone: formatedPhoneInput,
+          });
+          // resetValues();
+        } else {
+          alert("Bad Inputs Exist");
+        }
       }}
     >
       <u>
@@ -48,7 +95,7 @@ export const FunctionalForm = ({
           onChange: ({ target: { value } }) => setFirstNameInput(value),
         }}
       />
-      <ErrorMessage message={firstNameErrorMessage} show={true} />
+      <ErrorMessage message={firstNameErrorMessage} show={showFirstNameError} />
 
       {/* last name input */}
       <TextInput
@@ -60,7 +107,7 @@ export const FunctionalForm = ({
           onChange: ({ target: { value } }) => setLastNameInput(value),
         }}
       />
-      <ErrorMessage message={lastNameErrorMessage} show={true} />
+      <ErrorMessage message={lastNameErrorMessage} show={showLastNameError} />
 
       {/* Email Input */}
       <TextInput
@@ -72,7 +119,7 @@ export const FunctionalForm = ({
           onChange: ({ target: { value } }) => setEmailInput(value),
         }}
       />
-      <ErrorMessage message={emailErrorMessage} show={true} />
+      <ErrorMessage message={emailErrorMessage} show={showEmailError} />
 
       {/* City Input */}
       <TextInput
@@ -84,7 +131,7 @@ export const FunctionalForm = ({
           onChange: ({ target: { value } }) => setCityInput(value),
         }}
       />
-      <ErrorMessage message={cityErrorMessage} show={true} />
+      <ErrorMessage message={cityErrorMessage} show={showCityError} />
 
       <PhoneInput
         phoneInputState={phoneInputState}
@@ -93,7 +140,7 @@ export const FunctionalForm = ({
         }}
       />
 
-      <ErrorMessage message={phoneNumberErrorMessage} show={true} />
+      <ErrorMessage message={phoneNumberErrorMessage} show={showPhoneError} />
 
       <input type="submit" value="Submit" />
     </form>

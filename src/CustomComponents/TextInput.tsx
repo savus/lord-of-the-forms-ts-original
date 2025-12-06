@@ -10,7 +10,7 @@ export const TextInput = ({
   return (
     <div className="input-wrap">
       <label>{label}:</label>
-      <input {...inputProps} />
+      <input {...inputProps} list={label === "City" ? "cities" : ""} />
     </div>
   );
 };

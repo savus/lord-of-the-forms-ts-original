@@ -2,7 +2,9 @@ import { TRegexPatterns } from "../types";
 
 export const regexPatterns: TRegexPatterns = {
   name: /^[a-zA-Z]{2,}(\s)*$/,
+  city: /^[a-zA-Z ]{2,}(\s)*$/,
   email: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+  phone: /^(\d){2}([ -]?)(\d){2}[ -]?(\d){2}[ -]?(\d){1}$/,
 };
 
 export const isInputValid = (input: string, pattern: string) =>
